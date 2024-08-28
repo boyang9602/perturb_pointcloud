@@ -1,0 +1,7 @@
+# Acknowledgement
+
+1. [density_corruption.py](./density_corruption.py) and [noise_corruption.py](./density_corruption.py) are from https://github.com/Castiel-Lee/robustness_pc_detector/tree/main with some modifications.
+2. [fog_simulation.py](./fog_simulation.py) is from https://github.com/MartinHahner/LiDAR_fog_sim/tree/main.
+3. LISA is installed as a dependency from https://github.com/velatkilic/LISA/tree/main.
+
+We would like thank for their great work!
