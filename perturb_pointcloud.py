@@ -40,6 +40,7 @@ def kitti_handler(inpath, outpath, cfg):
 def apollo_handler(inpath, outpath, cfg):
     """
     read, augment and save point clouds
+    Note: timestamp will be lost
     """
     if (outpath / inpath.name).exists():
         return
@@ -50,7 +51,7 @@ def apollo_handler(inpath, outpath, cfg):
     aug_scan = getattr(Corruption, cfg['corruption'])(scan, cfg['severity'])
     aug_scan = aug_scan[:, :4]
     aug_scan[:, 3] *= 255
-    aug_pcd = PointCloud.from_points(np.hstack([aug_scan, timestamps]), pcd.fields, pcd.types)
+    aug_pcd = PointCloud.from_points(aug_scan, pcd.fields[:-1], pcd.types[:-1])
     aug_pcd.save(outpath / inpath.name)
 
 def main(cfg):
