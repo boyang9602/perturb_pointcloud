@@ -1,5 +1,6 @@
 from pylisa.lisa import Lisa
 from fog_simulation import simulate_fog, ParameterSet
+from wet_ground.augmentation import ground_water_augmentation
 import density_corruption
 import noise_corruption
 from sklearn.neighbors import NearestNeighbors
@@ -27,6 +28,18 @@ class Corruption:
         scan[:, -1] *= 255
         p = ParameterSet(alpha=severity, gamma=0.000001)
         aug_scan, _, _ = simulate_fog(p, scan, 10)
+        aug_scan[:, -1] /= 255
+        return aug_scan
+    
+    @staticmethod
+    def wet_ground(scan, severity):
+        severity = [0.1, 0.5, 2., 5., 10.][severity - 1]
+        scan[:, -1] *= 255
+        labels = np.zeros([scan.shape[0], 1])
+        aug_scan = np.hstack([scan, labels])
+        aug_scan = ground_water_augmentation(aug_scan, water_height=severity * 1e-3, debug=False)
+        labels = aug_scan[:, -1:]
+        aug_scan = aug_scan[:, :-1]
         aug_scan[:, -1] /= 255
         return aug_scan
 
