@@ -11,10 +11,12 @@ corruptions=("${weather_types[@]}" "${noise_types[@]}" "${density_types[@]}")
 dataset=$1
 dataroot=$2
 nworkers=$3
+shift 3
+subsets="$@"
 
 base_cmd="python perturb_pointcloud.py --dataset $dataset --dataroot $dataroot --nworkers $nworkers"
 
-for subset in "09" "10"; do
+for subset in "${subsets[@]}"; do
     for corruption in "${corruptions[@]}"; do
         for severity in {1..5}; do
             cmd="$base_cmd --subset $subset --corruption $corruption --severity $severity"

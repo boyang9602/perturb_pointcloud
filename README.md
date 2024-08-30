@@ -1,3 +1,10 @@
+# Dependencies
+
+1. `conda create -n perturb_pc python=3.8 scikit-learn numpy scipy click matplotlib`
+2. `pip install pypcd4 multiprocess`
+3. `git clone --depth 1 https://github.com/velatkilic/LISA.git && cd LISA && python setup.py install`
+4. copy pylisa/mie.so to where pylisa is installed (likely to be ~/miniconda3/envs/perturb_pc/lib/python3.8/site-packages/pylisa-0.0.2-py3.8.egg/pylisa/)
+
 # Acknowledgement
 
 1. [density_corruption.py](./density_corruption.py) and [noise_corruption.py](./density_corruption.py) are from https://github.com/Castiel-Lee/robustness_pc_detector/tree/main with some modifications.
