@@ -1,6 +1,6 @@
 #!/bin/bash
 
-weather_types=("rain" "snow" "fog" "wet_ground")
+weather_types=("rain" "snow" "fog" "rain_wet_ground" "snow_wet_ground")
 noise_types=("uniform_noise" "gaussian_noise" "background_noise" "impulse_noise" \
              "uniform_noise_radial" "gaussian_noise_radial" "impulse_noise_radial" \
              "upsampling" )

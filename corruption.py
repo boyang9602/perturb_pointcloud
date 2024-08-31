@@ -32,22 +32,23 @@ class Corruption:
         return aug_scan
     
     @staticmethod
-    def wet_ground(scan, severity):
-        severity = [0.1, 0.5, 2., 5., 10.][severity - 1]
+    def wet_ground_model(scan, water_height):
         scan[:, -1] *= 255
         labels = np.zeros([scan.shape[0], 1])
         aug_scan = np.hstack([scan, labels])
-        aug_scan = ground_water_augmentation(aug_scan, water_height=severity * 1e-3, debug=False)[:, :4]
+        aug_scan = ground_water_augmentation(aug_scan, water_height=water_height * 1e-3, debug=False)[:, :4]
         aug_scan[:, -1] /= 255
         return aug_scan
     
     @staticmethod
     def rain_wet_ground(scan, severity):
-        return Corruption.wet_ground(Corruption.rain(scan, severity), severity)
+        water_height = [5.0, 10.0, 15.0, 25.0, 50.0][severity]
+        return Corruption.wet_ground(Corruption.rain(scan, severity), water_height)
     
     @staticmethod
     def snow_wet_ground(scan, severity):
-        return Corruption.wet_ground(Corruption.snow(scan, severity), severity)
+        water_height = [0.5, 1, 1.5, 2.5, 5.0][severity]
+        return Corruption.wet_ground(Corruption.snow(scan, severity), water_height)
 
 def fill_intensity(pc, pc_cor_xyz, n_b=5):
     N, _ = pc.shape
