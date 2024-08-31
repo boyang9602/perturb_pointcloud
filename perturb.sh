@@ -8,11 +8,13 @@ density_types=("cutout" "density_inc" "density_dec" "beam_del" "layer_del")
 
 corruptions=("${weather_types[@]}" "${noise_types[@]}" "${density_types[@]}")
 
+corruptions=("rain_wet_ground" "snow_wet_ground")
+
 dataset=$1
 dataroot=$2
 nworkers=$3
 shift 3
-subsets="$@"
+subsets=("$@")
 
 base_cmd="python perturb_pointcloud.py --dataset $dataset --dataroot $dataroot --nworkers $nworkers"
 
