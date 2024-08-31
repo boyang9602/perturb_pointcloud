@@ -43,12 +43,12 @@ class Corruption:
     @staticmethod
     def rain_wet_ground(scan, severity):
         water_height = [5.0, 10.0, 15.0, 25.0, 50.0][severity]
-        return Corruption.wet_ground(Corruption.rain(scan, severity), water_height)
+        return Corruption.wet_ground_model(Corruption.rain(scan, severity), water_height)
     
     @staticmethod
     def snow_wet_ground(scan, severity):
         water_height = [0.5, 1, 1.5, 2.5, 5.0][severity]
-        return Corruption.wet_ground(Corruption.snow(scan, severity), water_height)
+        return Corruption.wet_ground_model(Corruption.snow(scan, severity), water_height)
 
 def fill_intensity(pc, pc_cor_xyz, n_b=5):
     N, _ = pc.shape
