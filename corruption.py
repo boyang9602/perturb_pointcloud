@@ -14,12 +14,12 @@ class Corruption:
     @staticmethod
     def rain(scan, severity):
         severity = [5.0, 15.0, 50.0, 150.0, 500.0][severity - 1]
-        return Corruption.rain_model.augment(scan, severity)
+        return Corruption.rain_model.augment(scan, severity)[:, :4]
 
     @staticmethod
     def snow(scan, severity):
         severity = [0.5, 1.5, 5.0, 15.0, 50.0][severity - 1]
-        return Corruption.snow_model.augment(scan, severity)
+        return Corruption.snow_model.augment(scan, severity)[:, :4]
 
     @staticmethod
     def fog(scan, severity):
@@ -37,11 +37,17 @@ class Corruption:
         scan[:, -1] *= 255
         labels = np.zeros([scan.shape[0], 1])
         aug_scan = np.hstack([scan, labels])
-        aug_scan = ground_water_augmentation(aug_scan, water_height=severity * 1e-3, debug=False)
-        labels = aug_scan[:, -1:]
-        aug_scan = aug_scan[:, :-1]
+        aug_scan = ground_water_augmentation(aug_scan, water_height=severity * 1e-3, debug=False)[:, :4]
         aug_scan[:, -1] /= 255
         return aug_scan
+    
+    @staticmethod
+    def rain_wet_ground(scan, severity):
+        return Corruption.wet_ground(Corruption.rain(scan, severity), severity)
+    
+    @staticmethod
+    def snow_wet_ground(scan, severity):
+        return Corruption.wet_ground(Corruption.snow(scan, severity), severity)
 
 def fill_intensity(pc, pc_cor_xyz, n_b=5):
     N, _ = pc.shape
