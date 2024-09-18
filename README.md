@@ -1,9 +1,10 @@
 # Dependencies
 
 1. `conda create -n perturb_pc python=3.8 scikit-learn numpy scipy click matplotlib`
-2. `pip install pypcd4 multiprocess`
-3. `git clone --depth 1 https://github.com/velatkilic/LISA.git && cd LISA && python setup.py install`
-4. copy pylisa/mie.so to where pylisa is installed (likely to be ~/miniconda3/envs/perturb_pc/lib/python3.8/site-packages/pylisa-0.0.2-py3.8.egg/pylisa/)
+2. `conda activate perturb_pc`
+3. `pip install pypcd4 multiprocess`
+4. `git clone --depth 1 https://github.com/velatkilic/LISA.git && cd LISA && python setup.py install`
+5. copy pylisa/mie.so to where pylisa is installed (likely to be ~/miniconda3/envs/perturb_pc/lib/python3.8/site-packages/pylisa-0.0.2-py3.8.egg/pylisa/)
 
 # Datasets
 Please find the clean data from [KITTI Odometry](https://www.cvlibs.net/datasets/kitti/eval_odometry.php) and [Apollo Southbay](https://developer.apollo.auto/southbay.html). 
