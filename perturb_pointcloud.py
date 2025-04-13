@@ -62,6 +62,12 @@ def main(cfg):
         outpath.mkdir(parents=True, exist_ok=True)
         filepaths = inpath.glob('*.bin')
         handler = kitti_handler
+    elif cfg['dataset'] == 'kitti_raw':
+        inpath = dataroot / f'{cfg["subset"]}/velodyne_points/bins'
+        outpath = dataroot / f'{cfg["subset"]}/velodyne_points/{cfg["corruption"]}_{cfg["severity"]}/'
+        outpath.mkdir(parents=True, exist_ok=True)
+        filepaths = inpath.glob('*.bin')
+        handler = kitti_handler
     elif cfg['dataset'] == 'apollo':
         inpath = dataroot / f'apollo/TestData/{ASubsetPath[cfg["subset"]]}/pcds'
         outpath = dataroot / f'apollo_{cfg["corruption"]}_{cfg["severity"]}/TestData/{ASubsetPath[cfg["subset"]]}/pcds'
